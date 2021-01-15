@@ -1,4 +1,4 @@
-# ligo_factory_exemple
+# ligo_factory_example
 
 This repository provides an example of a Tezos smart contract implementing a "factory" pattern. The smart contract is written in Ligo (cameligo).
 

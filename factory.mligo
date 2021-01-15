@@ -102,37 +102,3 @@ let main (p,s: action * storage) : full_factory_return =
    | CreateService n -> create_service (n, s)
    | IncrementService i -> increment_service (i, s)
    | DecrementService d -> decrement_service (d, s)
-
-
-
-//  ligo compile-contract factory.mligo main
-//  ligo compile-storage factory.mligo main '{ services_list=(Set.empty:string set); services=(Map.empty:(string,address)map)}'
-//  ligo compile-parameter factory.mligo main 'CreateService({name="A";initial_value=2n})'
-//  ligo compile-parameter factory.mligo main 'IncrementService({name="A";initial_value=5n})'
-//  (fails) ligo dry-run --amount=0.0001 factory.mligo main 'CreateService({name="A";initial_value=2n})' '{ services_list=(Set.empty:string set); services=(Map.empty:(string,address)map)}'
-
-
-// DEPLOY contract
-// tezos-client originate contract factorycounter transferring 1 from bootstrap1 running '/home/frank/ligo/factory/factory.tz' --init '(Pair {} {})' --dry-run 
-// tezos-client originate contract factorycounter transferring 1 from bootstrap1 running '/home/frank/ligo/factory/factory.tz' --init '(Pair {} {})' --burn-cap 1.01
-// In another terminal
-// cd tezos
-// eval `./src/bin_client/tezos-init-sandboxed-client.sh 1`
-//  tezos-client bake for bootstrap1
-// tezos-client list known contracts
-// factory address => KT1BF2rgxHgcyxNBaYMcdngNEo5WEssKVpbF
-// tezos-client get contract storage for factorycounter
-
-//INTERACTION
-// tezos-client transfer 0 from bootstrap3 to factorycounter --arg '(Left (Pair 2 "A"))' --dry-run
-
-// tezos-client transfer 0 from bootstrap3 to factorycounter --arg '(Right (Pair 5 "A"))' --dry-run
-
-
-// tezos-client get contract storage for factorycounter5
-// Pair { Elt "A" "KT1MbpDddjYx8ZFH7irqHzAZ4S3ZHn2eNzjm" ;
-//        Elt "B" "KT1AEzZXCuCrMtArW6iQ3n7ejvSJ21DP8NLD" }
-//      { "A" ; "B" }
-// tezos-client get contract storage for KT1AEzZXCuCrMtArW6iQ3n7ejvSJ21DP8NLD
-// tezos-client transfer 0 from bootstrap1 to KT1AEzZXCuCrMtArW6iQ3n7ejvSJ21DP8NLD --arg '(Right 2)'
-// tezos-client transfer 0 from bootstrap1 to KT1AEzZXCuCrMtArW6iQ3n7ejvSJ21DP8NLD --arg '(Left 2)'
